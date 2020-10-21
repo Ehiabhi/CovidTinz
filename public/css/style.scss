@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+    background-color: black;
+    color: rgb(34, 195, 201);
+    font-family: monospace;
+}
+
+h1 {
+    color: rgb(212, 129, 19);
+    font-size: 1.7rem;
+}
+
+h1, h2 {
+    margin: 5% 0;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+.date {
+    position: relative;
+}
+
+@keyframes scroll {
+    0% {left: -500px;}
+    50% {left: 0px;}
+    100% {left:460px;}
+}
+
+#date {
+    position: relative;
+    left: -500px;
+    animation: scroll 20s infinite;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+hr {
+    width: 70%;
+    margin: 0 auto 0.5rem;
+    border-width: 1px 0 0;
+    border-color: rgb(212, 129, 19);
+}
+
+#total, #totalNew {
+    color: black;
+    width: 80%;
+    margin: 1rem auto;
+    background-image: linear-gradient(to right,  black 8%, rgb(212, 129, 19),  black 92%);
+    border-radius: 4px;
+    padding: 1rem;
+    list-style-type: none;
+    > li {
+        display: block;
+        margin: 4% 0;
+        > ul > li {
+            display: block;
+            font-size: 0.9rem;
+            margin: 1% 0;
+        }
+    }
+}
+
+.confirmed {
+    color: rgb(9, 3, 37);
+}
+
+.death {
+    color: rgb(221, 23, 23);
+}
+
+.recovered {
+    color: rgb(19, 231, 19);
+}
+
+button {
+    margin: 5% 0 15%;
+    width: 40%;
+    height: 3rem;
+    cursor: pointer;
+    background-color: rgb(212, 129, 19);
+    border-radius: 5px;
+    border-width: 0;
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+}
+
+button:hover {
+    background-color:black;
+    color: rgb(212, 129, 19);
+    border: 1px solid rgb(212, 129, 19);
+}
+
+h4 {
+    margin: 10px auto;
+}
+
+.country {
+    display: inline-block;
+    width: 80%;
+    margin: 7px auto;
+    table {
+        width: 100%;
+        border: 1px solid rgb(34, 195, 201);
+        border-radius: 5px;
+        td {
+            padding: 7px;
+        }
+    }
+}
+
+@media only screen and (min-width: 660px) {
+    .country {
+        width: 49%;
+        table {
+            border: 1px solid rgb(212, 129, 19);
+        }
+    }
+}
+
+@media only screen and (min-width: 980px) {
+    h1 {
+        font-size: 4.5rem;
+    }
+
+    h2 {
+        font-size: 3rem;
+    }
+    
+    @keyframes scroll {
+        0% {left: -1280px;}
+        50% {left: 0px;}
+        100% {left: 1280px;}
+    }
+
+    h3 {
+        font-size: 2.5rem;
+    }
+
+    #total, #totalNew {
+        width: 100%;
+        li {
+            display: inline-block;
+            width: 30%;
+            margin: 0 auto;
+            ul > li {
+                display: block;
+                margin: 0 auto;
+                width: 100%;
+                font-size: 2rem;
+            }
+        }
+    }
+
+    .confirmed {
+        color: rgb(194, 128, 6);
+    }
+
+    button {
+        width: 20%;
+        height: 5srem;
+    }
+
+    .country {
+        width: 24%;
+        table {
+            border: 1px solid rgb(212, 129, 19);
+        }
+    }
+}
