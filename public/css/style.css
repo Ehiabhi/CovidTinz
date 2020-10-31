@@ -11,6 +11,35 @@ body {
   font-family: monospace;
 }
 
+.bod {
+  opacity: 0.2;
+}
+
+.rotate {
+  width: 150px;
+  height: 150px;
+  border: 25px solid gray;
+  border-top: 25px solid #8ebafd;
+  border-radius: 50%;
+  animation: spin 2s infinite linear;
+}
+
+.outer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 h1 {
   color: #d48113;
   font-size: 1.7rem;
@@ -119,7 +148,18 @@ h4 {
   h2 {
     font-size: 3rem;
   }
-  
+
+  @keyframes scroll {
+    0% {
+      left: -1280px;
+    }
+    50% {
+      left: 0px;
+    }
+    100% {
+      left: 1280px;
+    }
+  }
   h3 {
     font-size: 2.5rem;
   }

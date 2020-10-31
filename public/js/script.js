@@ -6,10 +6,14 @@ let newGlobalRecovered = document.querySelector("#newGlobalRecovered");
 let newGlobalDeath = document.querySelector("#newGlobalDeath");
 let date = document.querySelector("#date");
 let countries = document.querySelector("#countries");
-
+let loader = document.getElementById("loader");
+let body = document.querySelector("body");
 
 
 function fetchData() {
+    body.classList.add("bod");
+    loader.setAttribute("style", "display: block");
+
     let apiUrl = "https://api.covid19api.com/summary";
     fetch(apiUrl)
         .then(response => {
@@ -18,9 +22,13 @@ function fetchData() {
         })
         .then(data => {
             storeNewInfo(data);
+            loader.setAttribute("style", "display: none");
+            body.classList.remove("bod");
         })
         .catch(error => {
             console.log("Error: " + error);
+            loader.setAttribute("style", "display: none");
+            body.classList.remove("bod");
         });
 }
 

@@ -11,6 +11,38 @@ body {
     font-family: monospace;
 }
 
+.bod {
+    opacity: 0.2;
+}
+
+// Loader component
+.rotate {
+    width: 150px;
+    height: 150px;
+    border: 25px solid rgb(128, 128, 128);
+    border-top: 25px solid rgba(142, 186, 253);
+    border-radius: 50%;
+    animation: spin 2s infinite linear;
+}
+
+.outer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 h1 {
     color: rgb(212, 129, 19);
     font-size: 1.7rem;
@@ -22,22 +54,6 @@ h1, h2 {
 
 h2 {
     font-size: 1.2rem;
-}
-
-.date {
-    position: relative;
-}
-
-@keyframes scroll {
-    0% {left: -500px;}
-    50% {left: 0px;}
-    100% {left:460px;}
-}
-
-#date {
-    position: relative;
-    left: -500px;
-    animation: scroll 20s infinite;
 }
 
 h3 {
