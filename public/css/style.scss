@@ -11,9 +11,11 @@ body {
     font-family: monospace;
 }
 
-.bod {
+.stop-scrolling {
+    height: 100%;
+    overflow: hidden;
     opacity: 0.2;
-}
+  }
 
 // Loader component
 .rotate {

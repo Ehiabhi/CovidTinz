@@ -1,55 +1,62 @@
-let globalConfirmed = document.querySelector("#globalConfirmed");
-let globalRecovered = document.querySelector("#globalRecovered");
-let globalDeath = document.querySelector("#globalDeath");
-let newGlobalConfirmed = document.querySelector("#newGlobalConfirmed");
-let newGlobalRecovered = document.querySelector("#newGlobalRecovered");
-let newGlobalDeath = document.querySelector("#newGlobalDeath");
-let date = document.querySelector("#date");
-let countries = document.querySelector("#countries");
-let loader = document.getElementById("loader");
-let body = document.querySelector("body");
-
+const globalConfirmed = document.querySelector("#globalConfirmed");
+const globalRecovered = document.querySelector("#globalRecovered");
+const globalDeath = document.querySelector("#globalDeath");
+const newGlobalConfirmed = document.querySelector("#newGlobalConfirmed");
+const newGlobalRecovered = document.querySelector("#newGlobalRecovered");
+const newGlobalDeath = document.querySelector("#newGlobalDeath");
+const date = document.querySelector("#date");
+const countries = document.querySelector("#countries");
+const loader = document.getElementById("loader");
+const body = document.querySelector("body");
+const fetch_button = document.getElementById("fetch_button");
 
 function fetchData() {
-    body.classList.add("bod");
-    loader.setAttribute("style", "display: block");
+  fetch_button.disabled = true;
+  // disabling app interaction during fetch event
+  body.classList.add("stop-scrolling");
+  loader.setAttribute("style", "display: block");
 
-    let apiUrl = "https://api.covid19api.com/summary";
-    fetch(apiUrl)
-        .then(response => {
-            let data = response.json();
-            return data;
-        })
-        .then(data => {
-            storeNewInfo(data);
-            loader.setAttribute("style", "display: none");
-            body.classList.remove("bod");
-        })
-        .catch(error => {
-            console.log("Error: " + error);
-            loader.setAttribute("style", "display: none");
-            body.classList.remove("bod");
-        });
+  let apiUrl = "https://api.covid19api.com/summary";
+  fetch(apiUrl)
+    .then((response) => {
+      let data = response.json();
+      return data;
+    })
+    .then((data) => {
+      storeNewInfo(data);
+      afterEffect();
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+      afterEffect();
+    });
+}
+
+function afterEffect() {
+  loader.setAttribute("style", "display: none");
+  // enabling app interaction after fetch event
+  body.classList.remove("stop-scrolling");
+  fetch_button.disabled = false;
 }
 
 function storeNewInfo(newUpdate) {
-    localStorage.clear();
-    localStorage.setItem("info", JSON.stringify(newUpdate));
-    latestUpdate = JSON.parse(localStorage.getItem("info"));
-    updateUI(latestUpdate);
+  localStorage.clear();
+  localStorage.setItem("info", JSON.stringify(newUpdate));
+  latestUpdate = JSON.parse(localStorage.getItem("info"));
+  updateUI(latestUpdate);
 }
 
 function updateUI(newInfoFromStorage) {
-    globalConfirmed.innerHTML = newInfoFromStorage.Global.TotalConfirmed;
-    globalRecovered.innerHTML = newInfoFromStorage.Global.TotalRecovered;
-    globalDeath.innerHTML = newInfoFromStorage.Global.TotalDeaths;
-    newGlobalConfirmed.innerHTML = newInfoFromStorage.Global.NewConfirmed;
-    newGlobalRecovered.innerHTML = newInfoFromStorage.Global.NewRecovered;
-    newGlobalDeath.innerHTML = newInfoFromStorage.Global.NewDeaths;
-    date.innerHTML = "Global Case Count At " + new Date(newInfoFromStorage.Date);
+  globalConfirmed.innerHTML = newInfoFromStorage.Global.TotalConfirmed;
+  globalRecovered.innerHTML = newInfoFromStorage.Global.TotalRecovered;
+  globalDeath.innerHTML = newInfoFromStorage.Global.TotalDeaths;
+  newGlobalConfirmed.innerHTML = newInfoFromStorage.Global.NewConfirmed;
+  newGlobalRecovered.innerHTML = newInfoFromStorage.Global.NewRecovered;
+  newGlobalDeath.innerHTML = newInfoFromStorage.Global.NewDeaths;
+  date.innerHTML = "Global Case Count At " + new Date(newInfoFromStorage.Date);
 
-    newInfoFromStorage.Countries.map(country => {
-        countries.innerHTML += `<div class="country">
+  newInfoFromStorage.Countries.map((country) => {
+    countries.innerHTML += `<div class="country">
         <h4>${country.Country}</h4>
         <table>
             <thead>
@@ -77,25 +84,24 @@ function updateUI(newInfoFromStorage) {
                 </tr>
             </tbody>
         </table>
-    </div>`
-    }
-    );
+    </div>`;
+  });
 }
 
 let defaultInfo = {
-    Global: {
-        TotalConfirmed: "-",
-        TotalRecovered: "-",
-        TotalDeaths: "-",
-        NewConfirmed: "-",
-        NewRecovered: "-",
-        NewDeaths: "-"
-    },
-    Date: new Date(),
-    Message: "",
-    Countries: []
-}
+  Global: {
+    TotalConfirmed: "-",
+    TotalRecovered: "-",
+    TotalDeaths: "-",
+    NewConfirmed: "-",
+    NewRecovered: "-",
+    NewDeaths: "-",
+  },
+  Date: new Date(),
+  Message: "",
+  Countries: [],
+};
 
 let latestUpdate = null;
 latestUpdate = JSON.parse(localStorage.getItem("info"));
-(!latestUpdate) ? storeNewInfo(defaultInfo) : updateUI(latestUpdate);
+!latestUpdate ? storeNewInfo(defaultInfo) : updateUI(latestUpdate);
